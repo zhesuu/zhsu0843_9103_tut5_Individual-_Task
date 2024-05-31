@@ -6,8 +6,8 @@ let targetCenterYs = [70, 490, 130, 240, 430, 370];
 
 let circle1Xs = [210, 540, 130];
 let circle1Ys = [20, 350, 320];
-let circle2Xs = [350, 480, 280, 20];
-let circle2Ys = [540, 100, 280, 215];
+let circle2Xs = [350, 420, 350, 20];
+let circle2Ys = [540, 130, 250, 215];
 let circle3Xs = [175, 385, 370, 90];
 let circle3Ys = [175, 385, -15, 470];
 
@@ -73,8 +73,8 @@ function drawConcentricCircles(centerX, centerY, maxDiameter, numCircles) {
   let step = maxDiameter / numCircles;
   for (let i = 0; i < numCircles; i++) {
     let diameter = maxDiameter - i * step;
-    fill(15); // Fixed color for concentric circles
-    stroke(50); // Fixed stroke color for concentric circles
+    fill(15); 
+    stroke(50); 
     strokeWeight(1);
     ellipse(centerX, centerY, diameter, diameter);
   }
@@ -83,7 +83,7 @@ function drawConcentricCircles(centerX, centerY, maxDiameter, numCircles) {
 // Function to draw dots in a circular pattern
 function drawCircleDots(centerX, centerY, radius, numDots, dot) {
   let angleStep = TWO_PI / numDots;
-  fill(15, 110, 10); // Fixed color for dots
+  fill(15, 110, 10); 
   noStroke();
   for (let i = 0; i < numDots; i++) {
     let angle = i * angleStep;
@@ -182,7 +182,7 @@ function Circle3(centerX, centerY, size) {
 
 // Draw function to render all the elements on the canvas
 function draw() {
-  background(0, 84, 121);
+  background(0, 50, 121);
   let Size = minWindowSize();
   scale(Size / 500);
 
