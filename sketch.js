@@ -35,8 +35,8 @@ function setup() {
 
   // Initialize sizes for smooth scaling
   for (let i = 0; i < circle1Xs.length + circle2Xs.length + circle3Xs.length; i++) {
-    circleSizes[i] = random(50, 140);
-    targetCircleSizes[i] = random(50, 140);
+    circleSizes[i] = random(20, 140);
+    targetCircleSizes[i] = random(20, 140);
   }
 }
 
@@ -49,7 +49,7 @@ function circleRing(centerX, centerY) {
   let cornerRadius = 8;
   let layerNum = 5;
   let s = 5 / layerNum;
-  fill(200); // Fixed color for rectangles
+  fill(20); 
   stroke(0);
   for (let a = 0; a < layerNum; a++) {
     for (let i = 0; i < numRects; i++) {
@@ -73,7 +73,7 @@ function drawConcentricCircles(centerX, centerY, maxDiameter, numCircles) {
   let step = maxDiameter / numCircles;
   for (let i = 0; i < numCircles; i++) {
     let diameter = maxDiameter - i * step;
-    fill(150); // Fixed color for concentric circles
+    fill(15); // Fixed color for concentric circles
     stroke(50); // Fixed stroke color for concentric circles
     strokeWeight(1);
     ellipse(centerX, centerY, diameter, diameter);
@@ -83,7 +83,7 @@ function drawConcentricCircles(centerX, centerY, maxDiameter, numCircles) {
 // Function to draw dots in a circular pattern
 function drawCircleDots(centerX, centerY, radius, numDots, dot) {
   let angleStep = TWO_PI / numDots;
-  fill(255); // Fixed color for dots
+  fill(15, 110, 10); // Fixed color for dots
   noStroke();
   for (let i = 0; i < numDots; i++) {
     let angle = i * angleStep;
@@ -96,7 +96,7 @@ function drawCircleDots(centerX, centerY, radius, numDots, dot) {
 // Function to draw lines radiating from a circle
 function drawCircleLines(centerX, centerY, startRadius, numLines, lineLength) {
   strokeWeight(1);
-  stroke(255); // Fixed color for lines
+  stroke(25); // Fixed color for lines
   for (let i = 0; i < numLines; i++) {
     let angle = TWO_PI / numLines * i;
     let xStart = centerX + cos(angle) * startRadius;
@@ -117,7 +117,7 @@ function Circle1(centerX, centerY, size) {
   noStroke();
   circle(centerX, centerY, size);
 
-  fill(150); // Fixed color for inner circle
+  fill(150); 
   noStroke();
   circle(centerX, centerY, size / 2);
 
@@ -135,11 +135,11 @@ function Circle2(centerX, centerY, size) {
   let initialNumDots = 40;
   let dotsIncrement = 6;
 
-  fill(150); // Fixed color for outer circle
+  fill(150); 
   noStroke();
   circle(centerX, centerY, size);
 
-  fill(255); // Fixed color for inner ellipse
+  fill(255); 
   ellipse(centerX, centerY, size / 4.67, size / 4.67);
 
   for (let i = 0; i < numLayers; i++) {
@@ -170,7 +170,7 @@ function Circle3(centerX, centerY, size) {
     }
   }
   strokeWeight(1);
-  stroke(255); // Fixed color for the shape
+  stroke(255); 
   noFill();
 
   beginShape();
@@ -178,20 +178,6 @@ function Circle3(centerX, centerY, size) {
     vertex(p.x, p.y);
   }
   endShape(CLOSE);
-}
-
-// Function to draw a chain of small circles around a center
-function drawChain(centerX, centerY, chainRadius, numLinks) {
-  let angleStep = TWO_PI / numLinks;
-  fill(255);
-  stroke(0);
-  strokeWeight(2.5);
-  for (let i = 0; i < numLinks; i++) {
-    let angle = i * angleStep;
-    let x = centerX + cos(angle) * chainRadius;
-    let y = centerY + sin(angle) * chainRadius;
-    ellipse(x, y, 6, 6);
-  }
 }
 
 // Draw function to render all the elements on the canvas
@@ -206,8 +192,8 @@ function draw() {
     centerYs[i] = lerp(centerYs[i], targetCenterYs[i], easing);
 
     // Draw main circles with updated positions
-    fill(255); // Fixed color for main circle
-    stroke(100); // Fixed stroke color for main circle
+    fill(255); 
+    stroke(100); 
     strokeWeight(1);
     circle(centerXs[i], centerYs[i], 140);
 
@@ -219,9 +205,9 @@ function draw() {
   for (let i = 0; i < circleSizes.length; i++) {
     circleSizes[i] = lerp(circleSizes[i], targetCircleSizes[i], easing);
 
-    // Update target sizes every 120 frames
-    if (frameCount % 120 == 0) {
-      targetCircleSizes[i] = random(50, 140);
+    // Update target sizes every 60 frames
+    if (frameCount % 60 == 0) {
+      targetCircleSizes[i] = random(70, 140);
     }
   }
 
@@ -241,16 +227,16 @@ function draw() {
   for (let i = 0; i < circle3Xs.length; i++) {
     let x = circle3Xs[i];
     let y = circle3Ys[i];
-    fill(180); // Fixed color for main circle
+    fill(18); 
     circle(x, y, circleSizes[circle1Xs.length + circle2Xs.length + i]);
     Circle3(x, y, circleSizes[circle1Xs.length + circle2Xs.length + i]);
-    fill(255); // Fixed color for inner circle
+    fill(25); 
     circle(x, y, circleSizes[circle1Xs.length + circle2Xs.length + i] / 2.33);
     drawConcentricCircles(x, y, 30, 5);
   }
 
-  // Every 120 frames, update target positions
-  if (frameCount % 120 == 0) {
+  // Every 48 frames, update target positions
+  if (frameCount % 48 == 0) {
     for (let i = 0; i < targetCenterXs.length; i++) {
       targetCenterXs[i] = random(width);
       targetCenterYs[i] = random(height);
