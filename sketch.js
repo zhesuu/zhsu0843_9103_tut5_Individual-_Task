@@ -13,6 +13,9 @@ let circle3Ys = [175, 385, -15, 470];
 
 const easing = 0.05;
 
+let circleSizes = [];
+let targetCircleSizes = [];
+
 // Function to get the minimum window size
 function minWindowSize() {
   return min(windowWidth, windowHeight);
@@ -28,6 +31,12 @@ function setup() {
   for (let i = 0; i < centerXs.length; i++) {
     targetCenterXs[i] = random(width);
     targetCenterYs[i] = random(height);
+  }
+
+  // Initialize sizes for smooth scaling
+  for (let i = 0; i < circle1Xs.length + circle2Xs.length + circle3Xs.length; i++) {
+    circleSizes[i] = random(50, 140);
+    targetCircleSizes[i] = random(50, 140);
   }
 }
 
@@ -99,18 +108,18 @@ function drawCircleLines(centerX, centerY, startRadius, numLines, lineLength) {
 }
 
 // Function to draw the first type of circle with dots and lines
-function Circle1(centerX, centerY) {
-  let baseRadius = 30;
-  let radiusIncrement = 5;
+function Circle1(centerX, centerY, size) {
+  let baseRadius = size / 4.67;
+  let radiusIncrement = size / 28;
   let numLayers = 4;
 
   fill(255, 204, 0);
   noStroke();
-  circle(centerX, centerY, 140);
+  circle(centerX, centerY, size);
 
   fill(150); // Fixed color for inner circle
   noStroke();
-  circle(centerX, centerY, 70);
+  circle(centerX, centerY, size / 2);
 
   for (let i = 0; i < numLayers; i++) {
     drawCircleDots(centerX, centerY, baseRadius + i * radiusIncrement, 30 + i * 7, 5);
@@ -119,19 +128,19 @@ function Circle1(centerX, centerY) {
 }
 
 // Function to draw the second type of circle with multiple layers of dots
-function Circle2(centerX, centerY) {
+function Circle2(centerX, centerY, size) {
   let numLayers = 10;
-  let initialRadius = 30;
-  let radiusStep = 4;
+  let initialRadius = size / 4.67;
+  let radiusStep = size / 35;
   let initialNumDots = 40;
   let dotsIncrement = 6;
 
   fill(150); // Fixed color for outer circle
   noStroke();
-  circle(centerX, centerY, 140);
+  circle(centerX, centerY, size);
 
   fill(255); // Fixed color for inner ellipse
-  ellipse(centerX, centerY, 30, 30);
+  ellipse(centerX, centerY, size / 4.67, size / 4.67);
 
   for (let i = 0; i < numLayers; i++) {
     let radius = initialRadius + i * radiusStep;
@@ -141,9 +150,9 @@ function Circle2(centerX, centerY) {
 }
 
 // Function to draw the third type of circle with vertices
-function Circle3(centerX, centerY) {
-  let innerRadius = 35;
-  let outerRadius = 65;
+function Circle3(centerX, centerY, size) {
+  let innerRadius = size / 4;
+  let outerRadius = size / 2.15;
   let numPoints = 120;
 
   let points = [];
@@ -206,26 +215,37 @@ function draw() {
     circleRing(centerXs[i], centerYs[i]);
   }
 
+  // Update circle sizes with easing
+  for (let i = 0; i < circleSizes.length; i++) {
+    circleSizes[i] = lerp(circleSizes[i], targetCircleSizes[i], easing);
+
+    // Update target sizes every 120 frames
+    if (frameCount % 120 == 0) {
+      targetCircleSizes[i] = random(50, 140);
+    }
+  }
+
+  // Draw animated circles
   for (let i = 0; i < circle1Xs.length; i++) {
     let x = circle1Xs[i];
     let y = circle1Ys[i];
-    Circle1(x, y);
+    Circle1(x, y, circleSizes[i]);
   }
 
   for (let i = 0; i < circle2Xs.length; i++) {
     let x = circle2Xs[i];
     let y = circle2Ys[i];
-    Circle2(x, y);
+    Circle2(x, y, circleSizes[circle1Xs.length + i]);
   }
 
   for (let i = 0; i < circle3Xs.length; i++) {
     let x = circle3Xs[i];
     let y = circle3Ys[i];
-    fill(18); // Fixed color for main circle
-    circle(x, y, 140);
-    Circle3(x, y);
-    fill(25); // Fixed color for inner circle
-    circle(x, y, 60);
+    fill(180); // Fixed color for main circle
+    circle(x, y, circleSizes[circle1Xs.length + circle2Xs.length + i]);
+    Circle3(x, y, circleSizes[circle1Xs.length + circle2Xs.length + i]);
+    fill(255); // Fixed color for inner circle
+    circle(x, y, circleSizes[circle1Xs.length + circle2Xs.length + i] / 2.33);
     drawConcentricCircles(x, y, 30, 5);
   }
 
