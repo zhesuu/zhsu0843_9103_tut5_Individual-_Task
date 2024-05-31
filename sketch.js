@@ -207,7 +207,7 @@ function draw() {
 
     // Update target sizes every 60 frames
     if (frameCount % 60 == 0) {
-      targetCircleSizes[i] = random(70, 140);
+      targetCircleSizes[i] = random(10, 140);
     }
   }
 
