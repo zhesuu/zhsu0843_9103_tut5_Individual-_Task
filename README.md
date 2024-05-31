@@ -10,7 +10,7 @@ My work is a timed animation event, the circle on the canvas of the work will sh
 
 ![An image of a galaxy](readmeImages/galaxy.jpg)
 
-- The picture above is my inspiration, it is a galaxy, because there are many black holes and planets in the universe, so I want to use the circle and animation to simulate the abstract galaxy, the circle that keeps enlarging and shrinking is just like the gravity of the black hole, and the circle that moves around is just like the planet that keeps moving in the universe.
+- The picture above is my inspiration, it is a galaxy, because there are many black holes and planets in the universe, so I want to use the circle and animation to simulate the abstract galaxy, the circle that keeps enlarging and shrinking is just like the gravity of the black hole, and the circle that moves around is just like the planet that keeps moving with high speed in the universe.
 
 - My personal animation skills are based on the Week8 tutorial as a reference.
 
